@@ -5,8 +5,7 @@ const myDiv = document.createElement('div');
 myDiv.classList.add('wrapper');
 
 // put it into the body
-const { body } = document;
-body.appendChild(myDiv);
+document.body.appendChild(myDiv);
 
 // make an unordered list
 const myUl = document.createElement('ul');
@@ -52,13 +51,17 @@ myDiv.appendChild(myImg);
 // eslint-disable-next-line no-undef
 const createNode = html =>
   new DOMParser().parseFromString(html, 'text/html').body.firstChild;
+
 const divFromHtmlString = createNode('<div><p>Ayo!!</p><p>Second P!</p></div>');
 console.log(divFromHtmlString);
 
 // put this div before the unordered list from above
+
 myUl.insertBefore(divFromHtmlString, myUl.childNodes[0]);
+// Wes used "el.insertAdjacent" and insertAdjacentHTML
 // add a class to the second paragraph called warning
 const secondDiv = document.querySelectorAll('div')[1];
+// Wes used el.firstElementChild to limit the scope of the query.
 secondDiv.classList.add('warning');
 
 // remove the first paragraph These both work!!
@@ -112,10 +115,10 @@ const appendNodeArrayToDestination = (nodeArray, destEl) => {
 };
 appendNodeArrayToDestination(players, newDiv);
 // put the div into the DOM just before the wrapper element
-myDiv.insertBefore(newDiv, myDiv.childNodes[0]);
+myDiv.insertAdjacentElement('beforebegin', newDiv);
 // Bonus, put a delete Button on each card so when you click it, the whole card is removed
 const handleDeleteButtonClick = e => {
-  console.log(e.target.parentNode.remove());
+  e.target.parentNode.remove();
 };
 const deleteButtons = document.querySelectorAll('.delete');
 deleteButtons.forEach((button, i) => {
